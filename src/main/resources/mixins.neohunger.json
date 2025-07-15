@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.nickttd.neohunger.mixin",
+  "refmap": "mixins.neohunger.refmap.json",
+  "mixins": [
+    "HeartBlink",
+    "GuiIngameAccessor"
+  ],
+  "client": [],
+  "server": []
+}
