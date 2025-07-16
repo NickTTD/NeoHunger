@@ -1,12 +1,10 @@
 /*
  * NeoHunger.java
- *
  * Main mod class for the NeoHunger mod for Minecraft 1.7.10.
- *
  * Purpose:
- *   - Entry point for the NeoHunger mod, which overhauls hunger, exhaustion, and natural regeneration mechanics to be more modern and configurable.
- *   - Registers proxies, event handlers, and sets up the mod lifecycle.
- *
+ * - Entry point for the NeoHunger mod, which overhauls hunger, exhaustion, and natural regeneration mechanics to be
+ * more modern and configurable.
+ * - Registers proxies, event handlers, and sets up the mod lifecycle.
  * Author: (your name or mod name here)
  */
 package com.nickttd.neohunger;

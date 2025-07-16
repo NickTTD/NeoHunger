@@ -1,10 +1,8 @@
 /*
  * HungerRegenHandler.java
- *
  * Handles custom hunger and natural regeneration logic for NeoHunger.
  * Replaces 1.7.10 passive healing with the newer saturation-based healing and
  * "slow" healing when you have 9 or more shanks.
- *
  * Author: NickTTD
  */
 package com.nickttd.neohunger;
@@ -30,22 +28,27 @@ public class HungerRegenHandler {
         // Only run at end of tick
         if (event.phase != PlayerTickEvent.Phase.END) return;
         EntityPlayer player = event.player;
-        World world = player.worldObj;
+        World world = player.getEntityWorld();
         int id = player.getEntityId();
         float health = player.getHealth();
         float maxHealth = player.getMaxHealth();
-        int foodLevel = player.getFoodStats().getFoodLevel();
-        float saturation = player.getFoodStats().getSaturationLevel();
+        int foodLevel = player.getFoodStats()
+            .getFoodLevel();
+        float saturation = player.getFoodStats()
+            .getSaturationLevel();
 
         // Skip on client side
         if (world.isRemote) return;
 
         // Only heal if natural regeneration is enabled
-        if (!world.getGameRules().getGameRuleBooleanValue("naturalRegeneration")) return;
+        if (!world.getGameRules()
+            .getGameRuleBooleanValue("naturalRegeneration")) return;
 
         // Cancel vanilla regen by resetting foodTimer via reflection
         try {
-            Field foodTimerField = player.getFoodStats().getClass().getDeclaredField("foodTimer");
+            Field foodTimerField = player.getFoodStats()
+                .getClass()
+                .getDeclaredField("foodTimer");
             foodTimerField.setAccessible(true);
             foodTimerField.setInt(player.getFoodStats(), 0);
         } catch (Exception e) {
@@ -59,7 +62,8 @@ public class HungerRegenHandler {
                 float healAmount = Math.min(1.0F, maxHealth - health); // Heal up to 1 health
                 float saturationCost = 2.0F;
                 player.heal(healAmount);
-                player.getFoodStats().setFoodSaturationLevel(Math.max(0, saturation - saturationCost));
+                player.getFoodStats()
+                    .setFoodSaturationLevel(Math.max(0, saturation - saturationCost));
                 timer = 0;
                 didSaturationHeal = true;
             }
@@ -69,13 +73,14 @@ public class HungerRegenHandler {
         }
 
         // Hunger-based healing: slower heal when you don't have saturation
-        // And have >=9 shanks 
+        // And have >=9 shanks
         if (!didSaturationHeal && foodLevel >= 18 && health < maxHealth) {
             int timer = hungerHealTimer.getOrDefault(id, 0) + 1;
             if (timer >= 80) { // Heal every 4 seconds
                 player.heal(1.0F);
                 // Add exhaustion: 6 per heal (4 = 1 hunger, 2 = saturation)
-                player.getFoodStats().addExhaustion(6.0F);
+                player.getFoodStats()
+                    .addExhaustion(6.0F);
                 timer = 0;
             }
             hungerHealTimer.put(id, timer);

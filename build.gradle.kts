@@ -13,3 +13,17 @@ tasks.withType<Jar> {
         )
     }
 }
+
+dependencies {
+    compileOnly(files("libs/TConstruct-1.7.10-1.8.8.jar"))
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        url = uri("https://maven.legacydevmc.org/")
+    }
+    maven {
+        url = uri("https://nexus.gtnewhorizons.com/repository/public/")
+    }
+}

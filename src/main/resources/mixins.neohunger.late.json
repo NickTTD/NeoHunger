@@ -1,0 +1,9 @@
+{
+  "required": false,
+  "package": "com.nickttd.neohunger.mixin",
+  "refmap": "mixins.neohunger.refmap.json",
+  "mixins": [
+    "HeartBlinkTinkers",
+    "ArmorProxyClientAccessor"
+  ]
+} 
