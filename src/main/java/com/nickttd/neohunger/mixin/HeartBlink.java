@@ -17,9 +17,7 @@ import net.minecraftforge.client.GuiIngameForge;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(value = GuiIngameForge.class, priority = Integer.MIN_VALUE)
 public class HeartBlink {
@@ -59,10 +57,5 @@ public class HeartBlink {
 
         int remaining = neoHunger$blinkEndTick$ - updateCounter;
         return remaining > 0 && (remaining / 3) % 2 == 1;
-    }
-
-    @Inject(method = "renderHealth", at = @At("HEAD"), remap = false)
-    private void printRenderHealthHead(CallbackInfo ci) {
-        System.out.println("[NeoHunger] GuiIngameForge.renderHealth called");
     }
 }
